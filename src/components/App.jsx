@@ -37,7 +37,7 @@ export class App extends Component {
     this.setState({ filter: ev.currentTarget.value });
   };
 
-  filteredContacts = () => {
+  foundContacts = () => {
     const { filter, contacts } = this.state;
 
     return contacts.filter(contact =>
@@ -58,7 +58,7 @@ export class App extends Component {
 
         <Filter filter={filter} executeFilter={this.executeFilter} />
         <ContactList
-          contacts={this.filteredContacts()}
+          contacts={this.foundContacts()}
           removeContact={this.removeContact}
         />
       </div>
