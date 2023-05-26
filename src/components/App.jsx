@@ -1,6 +1,7 @@
-import { Component } from "react";
-import { ContactForm } from "./ContactForm/ContactForm";
-import { ContactList } from "./ContactList/ContactList";
+import { Component } from 'react';
+import { ContactForm } from './ContactForm/ContactForm';
+import { ContactList } from './ContactList/ContactList';
+import { Filter } from './Filter/Filter';
 
 export class App extends Component {
   constructor() {
@@ -15,20 +16,54 @@ export class App extends Component {
       filter: '',
     };
   }
-   
 
-  render() {
+  newContact = ev => {
+    const loweredcaseName = ev.name.toLowerCase().trim();
 
-    return (
-      <div>
-        <h1>Phonebook</h1>
-        <ContactForm />
+    const ifExists = this.state.contacts.some(
+      contact => contact.name.toLowerCase().trim() === loweredcaseName
+    );
 
-        <h2>Contacts</h2>
-          <Filter   />
-  <ContactList   />  
-      </div>
+    if (ifExists) {
+      alert(`${ev.name} is already in contacts!`);
+    } else {
+      this.setState(({ contacts }) => ({
+        contacts: [...contacts, ev],
+      }));
+    }
+  };
+
+  executeFilter = ev => {
+    this.setState({ filter: ev.currentTarget.value });
+  };
+
+  filteredContacts = () => {
+    const { filter, contacts } = this.state;
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
+
+  removeContact = id =>
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter(contact => contact.id !== id),
+    }));
+
+  render() {
+    const { filter } = this.state;
+    return (
+      <div>
+        
+        <ContactForm newContact={this.newContact} />
+        
+        <ContactList
+          contacts={this.filteredContacts()}
+          removeContact={this.removeContact}
+        >
+          <Filter filter={filter} executeFilter={this.executeFilter} />
+        </ContactList>
+      </div>
+    );
+  }
 }
- 
