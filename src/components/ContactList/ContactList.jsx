@@ -1,12 +1,9 @@
 import css from './ContactList.module.css';
 import PropTypes from 'prop-types';
 
-export const ContactList = ({ contacts, children, removeContact }) => {
+export const ContactList = ({ contacts, removeContact }) => {
   return (
     <div className={css.contacts}>
-      <h2>Contacts</h2>
-      <label className={css.contactsLabel}>Find contacts by name</label>
-      {children}
       <ul className={css.contactsList}>
         {contacts.map(({ id, name, number }) => (
           <li className={css.contactsSingle} key={id}>

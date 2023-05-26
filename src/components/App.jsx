@@ -54,15 +54,13 @@ export class App extends Component {
     const { filter } = this.state;
     return (
       <div>
-        
         <ContactForm newContact={this.newContact} />
-        
+
+        <Filter filter={filter} executeFilter={this.executeFilter} />
         <ContactList
           contacts={this.filteredContacts()}
           removeContact={this.removeContact}
-        >
-          <Filter filter={filter} executeFilter={this.executeFilter} />
-        </ContactList>
+        />
       </div>
     );
   }

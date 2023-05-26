@@ -7,12 +7,14 @@ export class Filter extends Component {
     const { filter, executeFilter } = this.props;
     return (
       <div className={css.filter}>
+        <h2>Contacts</h2>
+        <div className={css.contactsLabel}>Find contacts by name</div>
         <input
           type="text"
           name="filter"
           className={css.filterInput}
           value={filter}
-          onChange={executeFilter} 
+          onChange={executeFilter}
         />
       </div>
     );
